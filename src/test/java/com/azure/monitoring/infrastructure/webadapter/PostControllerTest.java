@@ -44,7 +44,7 @@ class PostControllerTest {
 
         // Act
         mockMvc.perform(MockMvcRequestBuilders.get("/v1/tweets"))
-                // Assert
+        // Assert
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.[0].id").value(1))
                 .andExpect(jsonPath("$.[0].userId").value(1))

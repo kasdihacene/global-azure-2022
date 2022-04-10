@@ -2,8 +2,8 @@
 
 ### Application context (Social network)
 
-On this application, we expose an API for our social network. Firstly, we will expose an endpoint for fetching all
-published userPosts.
+On this application, we expose an API for our social network.
+Firstly, we will expose an endpoint for fetching all published userPosts.
 
     The provider to use is: https://jsonplaceholder.typicode.com
 
@@ -17,7 +17,6 @@ We consume the endpoint `/userPosts`, below the structure of a post :
     "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum..."
   }
 ````
-
 ### Technical stack
 
 The stack used on this tutorial is :
@@ -30,8 +29,7 @@ The stack used on this tutorial is :
 
 ### Installing dev tools
 
-For this workshop we need some tools to interact with the Azure account `az cli`, Kubernetes services (`kubectl`), maybe
-the tool for IaaC to provision a resources (`Terraform`)
+For this workshop we need some tools to interact with the Azure account `az cli`, Kubernetes services (`kubectl`), maybe the tool for IaaC to provision a resources (`Terraform`)
 
 1- Azure Cli:
 
@@ -49,8 +47,8 @@ Check : $ az -v or az --version
 
 Check : $ kubectl version
 
-3- terraform
-
+3- terraform 
+    
     All environments: https://www.terraform.io/downloads.html
 
 Check : $ terraform -v or terraform --version

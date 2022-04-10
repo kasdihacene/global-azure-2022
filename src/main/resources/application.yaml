@@ -6,3 +6,8 @@ springdoc:
 post:
   base-url: https://jsonplaceholder.typicode.com
   url-get-all: ${post.base-url}/posts
+spring:
+  cloud:
+    loadbalancer:
+      ribbon:
+        enable: false

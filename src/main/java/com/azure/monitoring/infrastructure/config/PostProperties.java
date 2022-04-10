@@ -11,4 +11,5 @@ import org.springframework.context.annotation.Configuration;
 @Setter
 public class PostProperties {
     private String urlGetAll;
+    private String baseUrl;
 }

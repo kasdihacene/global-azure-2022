@@ -1,5 +1,5 @@
 openapi: 3.0.0
-servers: [ ]
+servers: []
 info:
   description: Generated API - contract First social network
   version: "1.0.0"

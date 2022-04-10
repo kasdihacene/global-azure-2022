@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 class PostTest {
 
     @Test
-    void should_build_a_post_with_all_properties() {
+    void should_build_a_post_with_all_properties(){
         // Given
         Post expectedPost = somePost();
 

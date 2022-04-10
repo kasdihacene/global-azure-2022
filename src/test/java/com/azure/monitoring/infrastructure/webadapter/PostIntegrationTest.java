@@ -50,8 +50,8 @@ class PostIntegrationTest {
                 [{
                 "userId":1,
                 "id":1,
-                "title":"sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-                "body":"quia et suscipit\\nsuscipit recusandae consequuntur expedita"
+                "title":"Fake news",
+                "body":"Coronavirus Bioweapon – How China Stole Coronavirus From Canada And Weaponized It"
                 }]
                 """;
         stubFor(WireMock.get(urlMatching("/posts"))
