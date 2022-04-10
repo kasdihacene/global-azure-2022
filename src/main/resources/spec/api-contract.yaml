@@ -1,0 +1,44 @@
+openapi: 3.0.0
+servers: [ ]
+info:
+  description: Generated API - contract First social network
+  version: "1.0.0"
+  title: Contract first API - Laboratoire 2021 (social network)
+  contact:
+    email: hacene.kasdi@lacombedulienvert.fr
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: laboratoire
+paths:
+  /v1/tweets:
+    get:
+      tags:
+        - laboratoire
+      summary: Get the published posts
+      operationId: getAllPosts
+      description: Fetch all published posts
+      responses:
+        '200':
+          description: Successfully fetched
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserPost'
+
+components:
+  schemas:
+    UserPost:
+      type: object
+      properties:
+        userId:
+          type: integer
+        id:
+          type: integer
+        title:
+          type: string
+        body:
+          type: string
