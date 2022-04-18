@@ -33,3 +33,8 @@ build/
 .vscode/
 /.idea/
 /private/
+
+*.lock.hcl
+*.tfstate
+*.tfstate.backup
+.terraform

@@ -4,8 +4,7 @@
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>[LABORATOIRE-2021] %d{yyyy-MM-dd_HH:mm:ss} | %-5level | %-4relative %logger{35} | %M | %X{service}
-                %X{trt} %X{correlid} %X{emetteur} %X{destinataire} %msg %n
+            <pattern>[AZURE-MONITORING] %d{yyyy-MM-dd_HH:mm:ss} | %-5level | %-4relative %logger{35} | %M | %X{service} %X{trt} %X{correlid} %X{emetteur} %X{destinataire} %msg %n
             </pattern>
         </encoder>
     </appender>

@@ -26,8 +26,8 @@
 		<lombok.version>1.18.22</lombok.version>
 		<mapstruct.version>1.4.2.Final</mapstruct.version>
 
-		<docker.image.prefix>acrTrainingFr001.azurecr.io</docker.image.prefix>
-		<jib-maven-plugin.version>3.1.4</jib-maven-plugin.version>
+		<docker.image.prefix>acrdevfr001.azurecr.io</docker.image.prefix>
+		<jib-maven-plugin.version>3.2.1</jib-maven-plugin.version>
 		<modelmapper.version>3.0.0</modelmapper.version>
 		<jaxb-api.version>2.3.1</jaxb-api.version>
 		<jackson-databind.version>2.13.1</jackson-databind.version>
@@ -45,6 +45,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
 		<dependency>
