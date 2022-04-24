@@ -1,7 +1,6 @@
 ## -----------------------------------------------------------------------------##
-# This script allows provisioning an Azure container registry for storing
-# published docker images, for more details, refer to Microsoft documentation
-#
+# This script allows provisioning an Azure Kubernetes Service and
+# deploying helm chart to run Java Application within a pod
 ## -----------------------------------------------------------------------------##
 provider "azurerm" {
   tenant_id       = var.tenant
@@ -10,6 +9,15 @@ provider "azurerm" {
   client_secret   = var.client_secret
   features {}
   #This is required for v2 of the provider even if empty or plan will fail
+}
+provider "helm" {
+  kubernetes {
+    config_path            = "~/.kube/config"
+    host                   = azurerm_kubernetes_cluster.training_lacombe_aks.kube_config[0].host
+    client_certificate     = base64decode(azurerm_kubernetes_cluster.training_lacombe_aks.kube_config.0.client_certificate)
+    client_key             = base64decode(azurerm_kubernetes_cluster.training_lacombe_aks.kube_config.0.client_key)
+    cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.training_lacombe_aks.kube_config.0.cluster_ca_certificate)
+  }
 }
 
 ## Authenticating using a Service Principal with a Client Secret
@@ -46,6 +54,10 @@ locals {
 
 }
 
+## -----------------------------------------------------------------------------##
+## Provision a k8s cluster and configuring authentication services
+# using Service Principal
+## -----------------------------------------------------------------------------##
 resource "azurerm_kubernetes_cluster" "training_lacombe_aks" {
   name                = "training-lacombe-aks"
   location            = local.location
@@ -76,3 +88,17 @@ resource "azurerm_kubernetes_cluster" "training_lacombe_aks" {
   }
 }
 
+## -----------------------------------------------------------------------------##
+## A Chart is a Helm package. It contains all of the resource definitions necessary
+## to run an application, tool, or service inside of a Kubernetes cluster.
+## -----------------------------------------------------------------------------##
+resource "helm_release" "cloud-native-application-backend" {
+  depends_on = [azurerm_kubernetes_cluster.training_lacombe_aks]
+  name       = "global-azure-2022-release"
+  chart      = "./helm/global-azure-2022-chart"
+  namespace  = "default"
+
+  values = [
+    file("./helm/global-azure-2022-chart/values.yaml")
+  ]
+}
