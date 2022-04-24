@@ -1,5 +1,5 @@
 openapi: 3.0.0
-servers: []
+servers: [ ]
 info:
   description: Generated API - contract First social network
   version: "1.0.0"
@@ -10,12 +10,12 @@ info:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 tags:
-  - name: laboratoire
+  - name: cloud_native_app
 paths:
   /v1/tweets:
     get:
       tags:
-        - laboratoire
+        - cloud_native_app
       summary: Get the published posts
       operationId: getAllPosts
       description: Fetch all published posts
@@ -28,6 +28,21 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/UserPost'
+
+  /v1/error:
+    get:
+      tags:
+        - cloud_native_app
+      summary: Generate 5xx error
+      operationId: generateError
+      description: Get some error
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
 
 components:
   schemas:

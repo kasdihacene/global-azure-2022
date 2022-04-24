@@ -1,5 +1,8 @@
 server:
   port: 9090
+  error:
+    include-message: always
+    include-exception: true
 springdoc:
   swagger-ui:
     path: /globalazure-api.html

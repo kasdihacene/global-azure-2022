@@ -35,4 +35,15 @@ public record PostController(RetrievePostsUseCase postsUseCase, PostMapper postM
         }
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
+
+    @Operation(summary = "Generate 5xx error", description = "Get some error")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully fetched"),
+            @ApiResponse(responseCode = "500", description = "Unexpected error")
+    })
+    @Override
+    public ResponseEntity<Object> generateError() {
+        Integer.valueOf("SOME_STRING");
+        return new ResponseEntity<>("OK", HttpStatus.OK);
+    }
 }
