@@ -38,3 +38,4 @@ build/
 *.tfstate
 *.tfstate.backup
 .terraform
+application-private.yaml

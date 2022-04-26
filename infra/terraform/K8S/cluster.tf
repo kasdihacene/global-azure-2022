@@ -172,3 +172,22 @@ resource "azurerm_monitor_scheduled_query_rules_alert" "alert_on_5xx_errors" {
     threshold = 0
   }
 }
+
+resource "azurerm_storage_account" "cloud_native_app_storage" {
+  name                     = "cloudnativeappstorage"
+  resource_group_name      = local.resource_group
+  location                 = local.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+  account_kind             = "BlobStorage"
+
+  tags = {
+    environment = "staging"
+  }
+}
+
+resource "azurerm_storage_container" "cloud_native_app_storage_container" {
+  name                  = "cloudnativerepository"
+  storage_account_name  = azurerm_storage_account.cloud_native_app_storage.name
+  container_access_type = "blob"
+}

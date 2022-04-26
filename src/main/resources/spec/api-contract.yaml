@@ -10,7 +10,8 @@ info:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 tags:
-  - name: cloud_native_app
+  - name: cloud_native_app, cloud_native_app_upload
+
 paths:
   /v1/tweets:
     get:
@@ -44,6 +45,30 @@ paths:
               schema:
                 type: object
 
+  /v2/upload:
+    post:
+      tags:
+        - cloud_native_app_upload
+      summary: Upload document to Azure Storage
+      operationId: uploadDocument
+      description: Upload multipart file scenario
+      requestBody:
+        content:
+          multipart/form-data: # Media type
+            schema: # Request payload
+              type: object
+              properties: # Request parts
+                document:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadResponse'
+
 components:
   schemas:
     UserPost:
@@ -56,4 +81,11 @@ components:
         title:
           type: string
         body:
+          type: string
+    UploadResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        status:
           type: string

@@ -1,5 +1,7 @@
 package com.azure.monitoring.infrastructure.config;
 
+import com.azure.storage.blob.BlobContainerClient;
+import com.azure.storage.blob.BlobContainerClientBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Logger;
 import feign.codec.ErrorDecoder;
@@ -39,6 +41,16 @@ public class AppConfig {
     @Bean
     public OkHttpClient client() {
         return new OkHttpClient();
+    }
+
+    @Bean
+    public BlobContainerClient blobContainerClient(StorageProperties storageProperties) {
+
+        return new BlobContainerClientBuilder()
+                .containerName(storageProperties.getContainerName())
+                .connectionString(storageProperties.getConnectionString())
+                .endpoint(storageProperties.getEndpoint())
+                .buildClient();
     }
 
 }
