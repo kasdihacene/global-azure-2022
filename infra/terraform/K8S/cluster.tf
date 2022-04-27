@@ -85,6 +85,7 @@ resource "azurerm_kubernetes_cluster" "training_lacombe_aks" {
 
   tags = {
     Environment = "DEV"
+    Resource    = "GlobalAzure2022"
   }
 }
 
@@ -93,20 +94,24 @@ resource "azurerm_kubernetes_cluster" "training_lacombe_aks" {
 ## to run an application, tool, or service inside of a Kubernetes cluster.
 ## -----------------------------------------------------------------------------##
 resource "helm_release" "cloud-native-application-backend" {
-  depends_on = [azurerm_application_insights.app_insights_cloud_native]
-  name       = "global-azure-2022-release"
-  chart      = "./helm/global-azure-2022-chart"
-  namespace  = "default"
+  depends_on    = [
+    azurerm_application_insights.app_insights_cloud_native,
+    azurerm_storage_account.cloud_native_app_storage
+  ]
+  name          = "global-azure-2022-release"
+  chart         = "./helm/global-azure-2022-chart"
+  namespace     = "default"
+  recreate_pods = true
+  reset_values  = true
 
   values = [
-    file("./helm/global-azure-2022-chart/values.yaml")
+    templatefile("./helm/global-azure-2022-chart/values.yaml", # Override variable used by interpolation
+    {
+      # Set instrumentation key as environment variable for running pod
+      app_insights_connection_string = azurerm_application_insights.app_insights_cloud_native.connection_string
+      storage_connection_string      = azurerm_storage_account.cloud_native_app_storage.primary_connection_string
+    })
   ]
-
-  # Set instrumentation key as environment variable for running pod
-  set_sensitive {
-    name  = "APPLICATIONINSIGHTS_CONNECTION_STRING"
-    value = "InstrumentationKey=`${azurerm_application_insights.app_insights_cloud_native.instrumentation_key}`"
-  }
 }
 
 resource "azurerm_log_analytics_workspace" "workspace_log_analytics_001" {
@@ -125,6 +130,11 @@ resource "azurerm_application_insights" "app_insights_cloud_native" {
   resource_group_name = local.resource_group
   workspace_id        = azurerm_log_analytics_workspace.workspace_log_analytics_001.id
   application_type    = "web"
+
+  tags = {
+    Environment = "DEV"
+    Resource    = "GlobalAzure2022"
+  }
 }
 
 
@@ -133,15 +143,9 @@ resource "azurerm_monitor_action_group" "cloud_native_app_action_group" {
   resource_group_name = local.resource_group
   short_name          = "cnaction"
 
-  webhook_receiver {
-    name                    = "Webhook Cloud Native Application"
-    service_uri             = "https://lacombedulionvert.webhook.office.com/webhookb2/cfe00144-9280-4ec7-99d6-65ba7e7c7f30@141f2430-08e9-4892-879e-8545cf73c23b/IncomingWebhook/a7bca04fd2194b20ad01b56bf2db8b96/b4ba4dd2-f137-4f1e-98b5-439ee08d8a9c"
-    use_common_alert_schema = true
-  }
   email_receiver {
-    name                    = "sendtoteams"
-    email_address           = "7a3c2082.lacombedulionvert.fr@fr.teams.ms"
-    use_common_alert_schema = true
+    name          = "sendtodevelopmentteam"
+    email_address = "hacene.azure@gmail.com"
   }
 }
 
@@ -152,17 +156,22 @@ resource "azurerm_monitor_scheduled_query_rules_alert" "alert_on_5xx_errors" {
   resource_group_name = local.resource_group
 
   action {
-    action_group  = [azurerm_monitor_action_group.cloud_native_app_action_group.id]
-    email_subject = "Cloud Native Error 5xx"
+    action_group           = [azurerm_monitor_action_group.cloud_native_app_action_group.id]
+    email_subject          = "Global Azure 2022 Application Error"
+    custom_webhook_payload = "{}"
   }
   data_source_id = azurerm_application_insights.app_insights_cloud_native.id
-  description    = "Alert when total results cross threshold"
+  description    = "Alert provided by Global Azure 2022 App Insights"
   enabled        = true
   # Count all requests with server error result code grouped into 5-minute bins
   query          = <<-QUERY
-  requests
-    | where tolong(resultCode) >= 500
-    | summarize count() by bin(timestamp, 5m)
+  let startTimestamp = ago(5min);
+    requests
+    | where timestamp > startTimestamp
+    | where name contains_cs "/v1/"
+    | where success contains "False"
+    | where toint(resultCode) between (400 .. 600)
+    | summarize AggregateValue = count() by bin(timestamp, 5m), url, resultCode, operation_Id
   QUERY
   severity       = 1
   frequency      = 5
@@ -182,7 +191,8 @@ resource "azurerm_storage_account" "cloud_native_app_storage" {
   account_kind             = "BlobStorage"
 
   tags = {
-    environment = "staging"
+    Environment = "DEV"
+    Resource    = "GlobalAzure2022"
   }
 }
 

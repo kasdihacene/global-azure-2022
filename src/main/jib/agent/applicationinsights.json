@@ -1,0 +1,27 @@
+{
+  "role": {
+    "name": "global-azure-2022"
+  },
+  "instrumentation": {
+    "logging": {
+      "level": "DEBUG"
+    }
+  },
+  "preview": {
+    "sampling": {
+      "overrides": [
+        {
+          "attributes": [
+            {
+              "key": "http.url",
+              "value": ".*/actuator/health",
+              "matchType": "regexp"
+            }
+          ],
+          "percentage": 0,
+          "id": "filter out health check"
+        }
+      ]
+    }
+  }
+}

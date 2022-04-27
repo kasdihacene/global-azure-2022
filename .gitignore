@@ -32,10 +32,11 @@ build/
 ### VS Code ###
 .vscode/
 /.idea/
-/private/
+private/
 
 *.lock.hcl
 *.tfstate
 *.tfstate.backup
 .terraform
 application-private.yaml
+/src/main/jib/agent/applicationinsights-agent.jar

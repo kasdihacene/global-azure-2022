@@ -38,6 +38,7 @@
 		<feign-okhttp.version>11.8</feign-okhttp.version>
 		<spring-cloud.version>3.1.1</spring-cloud.version>
 		<wiremock.version>2.27.2</wiremock.version>
+		<app-insights-agent.version>3.2.10</app-insights-agent.version>
 	</properties>
 
 
@@ -266,7 +267,41 @@
 							<password>${env.password}</password>
 						</auth>
 					</to>
+					<container>
+						<jvmFlags>
+							<jvmFlag>-javaagent:agent/applicationinsights-agent.jar</jvmFlag>
+						</jvmFlags>
+					</container>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.1.1</version>
+				<executions>
+					<execution>
+						<id>copyAppInsightsAgent</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.microsoft.azure</groupId>
+									<artifactId>applicationinsights-agent</artifactId>
+									<version>${app-insights-agent.version}</version>
+									<type>jar</type>
+									<overWrite>false</overWrite>
+									<outputDirectory>${project.basedir}/src/main/jib/agent</outputDirectory>
+									<destFileName>applicationinsights-agent.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+							<!-- other configurations here -->
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 
 		</plugins>

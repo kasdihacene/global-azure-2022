@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{.Values.configMap.name }}-file
+  namespace: default
+data:
+  application-secrets.yaml: |
+    azure:
+      storage:
+        connectionString: {{.Values.configMap.storageConnectionString }}
+        containerName: {{.Values.configMap.storageContainerName }}
+        endpoint: {{.Values.configMap.storageEndpoint }}
