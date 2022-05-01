@@ -13,13 +13,21 @@ tags:
   - name: cloud_native_app, cloud_native_app_upload
 
 paths:
-  /v1/tweets:
+  /v1/tweets/{numberOfTweets}:
     get:
       tags:
         - cloud_native_app
       summary: Get the published posts
       operationId: getAllPosts
       description: Fetch all published posts
+      parameters:
+        - name: numberOfTweets
+          in: path
+          description: Number of tweets to retrieve
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         '200':
           description: Successfully fetched

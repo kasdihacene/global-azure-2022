@@ -58,7 +58,7 @@ class PostIntegrationTest {
                 .willReturn(okJson(expectedResponse)
                         .withHeader("Content-Type", "application/json")));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/tweets"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/tweets/1"))
                 // Assert
                 .andExpect(status().isOk())
                 .andExpect(status().isOk())

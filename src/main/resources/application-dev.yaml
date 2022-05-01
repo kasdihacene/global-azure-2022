@@ -1,0 +1,10 @@
+post:
+  base-url: https://jsonplaceholder.typicode.com
+  url-get-all: ${post.base-url}/posts
+spring:
+  cloud:
+    loadbalancer:
+      ribbon:
+        enable: false
+  config:
+    import: "classpath:application-private.yaml"  # This file hosts the private keys and never pushed to the remote repository

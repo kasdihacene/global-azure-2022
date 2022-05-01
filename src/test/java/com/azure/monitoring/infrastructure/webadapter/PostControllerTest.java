@@ -33,6 +33,7 @@ class PostControllerTest {
     @Test
     void should_get_all_posts() throws Exception {
         // Arrange
+        int limit = 10;
         Post postFactory = Post.builder()
                 .id(1)
                 .userId(1)
@@ -40,10 +41,10 @@ class PostControllerTest {
                 .body("Coronavirus Bioweapon – How China Stole Coronavirus From Canada And Weaponized It")
                 .build();
         List<Post> postCollection = Collections.singletonList(postFactory);
-        Mockito.when(postService.fetchAllPosts()).thenReturn(postCollection);
+        Mockito.when(postService.fetchAllPosts(limit)).thenReturn(postCollection);
 
         // Act
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/tweets"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/tweets/10"))
         // Assert
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.[0].id").value(1))

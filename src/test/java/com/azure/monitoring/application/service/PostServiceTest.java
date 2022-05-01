@@ -10,6 +10,7 @@ import com.azure.monitoring.infrastructure.apiadapter.post.PostResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 import java.util.List;
@@ -34,11 +35,11 @@ class PostServiceTest {
         // Given
         List<PostResponse> postResponses = somePostResponse();
         List<Post> expectedPosts = postResponseMapper.map(postResponses);
-
+        int limit = 10;
 
         // When
-        Mockito.when(retrievePostsPort.fetchPosts()).thenReturn(postResponses);
-        List<Post> posts = postsUseCase.fetchAllPosts();
+        Mockito.when(retrievePostsPort.fetchPosts(ArgumentMatchers.any())).thenReturn(postResponses);
+        List<Post> posts = postsUseCase.fetchAllPosts(limit);
 
         // Then
         Assertions.assertThat(posts).containsAnyElementsOf(expectedPosts);

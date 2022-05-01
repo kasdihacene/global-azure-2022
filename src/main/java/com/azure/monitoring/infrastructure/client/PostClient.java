@@ -9,6 +9,6 @@ import java.util.List;
 @FeignClient(value = "jsonplaceholder-client", url = "${post.base-url}")
 public interface PostClient {
 
-    @GetMapping(value = "/posts")
+    @GetMapping(value = "/jsonserver/v1/posts")
     List<PostResponse> getPosts();
 }

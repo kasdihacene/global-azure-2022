@@ -33,12 +33,13 @@ class PostAdapterTest {
     void should_fetch_all_published_posts_per_user() {
         // Given
         String simulatedUrl = "https://url/to/call";
+        int limit = 1;
 
         // When
         Mockito.when(postProperties.getUrlGetAll()).thenReturn(simulatedUrl);
         Mockito.when(postClient.getPosts()).thenReturn(somePostResponses());
 
-        List<PostResponse> postResponses = retrievePostsPort.fetchPosts();
+        List<PostResponse> postResponses = retrievePostsPort.fetchPosts(limit);
 
         // Then
         List<PostResponse> listPosts = expectedPostResponses();
@@ -49,12 +50,12 @@ class PostAdapterTest {
     void should_throw_an_exception_when_an_error_occurs() {
         // Given
         String simulatedUrl = "https://url/to/call";
+        int limit = 10;
 
         // When
         Mockito.when(postProperties.getUrlGetAll()).thenReturn(simulatedUrl);
         Mockito.when(postClient.getPosts()).thenThrow(new RuntimeException("ERROR SIMULATION"));
-
-        assertThatThrownBy(() -> retrievePostsPort.fetchPosts())
+        assertThatThrownBy(() -> retrievePostsPort.fetchPosts(limit))
                 // Then
                 .isInstanceOf(PostAdapterException.class)
                 .hasMessageContaining("An Error occurred when calling the API [https://url/to/call] | Error [ERROR SIMULATION]");
@@ -65,12 +66,13 @@ class PostAdapterTest {
     void should_throw_an_exception_when_the_social_network_provider_returns_an_error() {
         // Given
         String simulatedUrl = "https://url/to/call";
+        int limit = 10;
 
         // When
         Mockito.when(postProperties.getUrlGetAll()).thenReturn(simulatedUrl);
         Mockito.when(postClient.getPosts()).thenThrow(new RuntimeException("EXCEPTION SIMULATION"));
 
-        assertThatThrownBy(() -> retrievePostsPort.fetchPosts())
+        assertThatThrownBy(() -> retrievePostsPort.fetchPosts(limit))
                 // Then
                 .isInstanceOf(PostAdapterException.class)
                 .hasMessageContaining("EXCEPTION SIMULATION");

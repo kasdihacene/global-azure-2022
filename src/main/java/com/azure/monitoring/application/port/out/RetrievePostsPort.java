@@ -5,5 +5,5 @@ import com.azure.monitoring.infrastructure.apiadapter.post.PostResponse;
 import java.util.List;
 
 public interface RetrievePostsPort {
-    List<PostResponse> fetchPosts();
+    List<PostResponse> fetchPosts(Integer limit);
 }

@@ -1,0 +1,22 @@
+post:
+  # A Microservice already deployed on the cluster having service name jsonserver-service, internally exposed
+  base-url: http://jsonserver-service.default.svc.cluster.local:80
+  url-get-all: ${post.base-url}/jsonserver/v1/posts
+spring:
+  cloud:
+    loadbalancer:
+      ribbon:
+        enable: false
+  config:
+    # This file hosts the private keys and never pushed to the remote repository (see the commented section application-private.yaml)
+    import: "classpath:application-private.yaml"
+
+##########################################################################################
+#                           application-private.yaml                                     #
+##########################################################################################
+#azure:
+#  storage:
+#    connectionString: DefaultEndpointsProtocol=https;AccountName=<account-name>;AccountKey=<key>;EndpointSuffix=core.windows.net
+#    containerName: cloudnativerepository
+#    endpoint: https://<account-name>.blob.core.windows.net/<repository-name>
+##########################################################################################

@@ -5,5 +5,5 @@ import com.azure.monitoring.domain.Post;
 import java.util.List;
 
 public interface RetrievePostsUseCase {
-    List<Post> fetchAllPosts();
+    List<Post> fetchAllPosts(Integer limit);
 }

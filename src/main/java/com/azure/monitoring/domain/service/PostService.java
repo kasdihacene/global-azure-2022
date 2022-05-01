@@ -15,9 +15,9 @@ public record PostService(RetrievePostsPort retrievePostsPort, PostResponseMappe
         implements RetrievePostsUseCase {
 
     @Override
-    public List<Post> fetchAllPosts() {
+    public List<Post> fetchAllPosts(Integer limit) {
 
         log.info("Fetching all published posts");
-        return postResponseMapper.map(retrievePostsPort.fetchPosts());
+        return postResponseMapper.map(retrievePostsPort.fetchPosts(limit));
     }
 }
