@@ -6,7 +6,7 @@ import com.azure.monitoring.application.port.in.RetrievePostsUseCase;
 import com.azure.monitoring.application.port.out.RetrievePostsPort;
 import com.azure.monitoring.domain.Post;
 import com.azure.monitoring.domain.service.PostService;
-import com.azure.monitoring.infrastructure.apiadapter.post.PostResponse;
+import com.azure.monitoring.infrastructure.adapters.apiadapter.post.PostResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

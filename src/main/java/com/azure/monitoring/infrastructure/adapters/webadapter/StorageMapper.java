@@ -1,4 +1,4 @@
-package com.azure.monitoring.infrastructure.webadapter;
+package com.azure.monitoring.infrastructure.adapters.webadapter;
 
 
 import com.azure.monitoring.domain.UploadResponseMessage;

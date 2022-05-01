@@ -1,4 +1,4 @@
-package com.azure.monitoring.infrastructure.storageadapter;
+package com.azure.monitoring.infrastructure.adapters.storageadapter;
 
 public class AzureStorageUploadException extends RuntimeException {
 

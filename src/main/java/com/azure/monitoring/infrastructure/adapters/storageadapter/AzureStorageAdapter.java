@@ -1,4 +1,4 @@
-package com.azure.monitoring.infrastructure.storageadapter;
+package com.azure.monitoring.infrastructure.adapters.storageadapter;
 
 import com.azure.monitoring.application.port.out.StoragePort;
 import com.azure.storage.blob.BlobClient;

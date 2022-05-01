@@ -1,8 +1,9 @@
 package com.azure.monitoring.infrastructure.apiadapter;
 
 import com.azure.monitoring.application.port.out.RetrievePostsPort;
-import com.azure.monitoring.infrastructure.apiadapter.post.PostResponse;
-import com.azure.monitoring.infrastructure.client.PostClient;
+import com.azure.monitoring.infrastructure.adapters.apiadapter.PostAdapter;
+import com.azure.monitoring.infrastructure.adapters.apiadapter.post.PostResponse;
+import com.azure.monitoring.infrastructure.adapters.client.PostClient;
 import com.azure.monitoring.infrastructure.config.PostProperties;
 import com.azure.monitoring.infrastructure.exceptions.PostAdapterException;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,4 +1,4 @@
-package com.azure.monitoring.infrastructure.apiadapter.post;
+package com.azure.monitoring.infrastructure.adapters.apiadapter.post;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

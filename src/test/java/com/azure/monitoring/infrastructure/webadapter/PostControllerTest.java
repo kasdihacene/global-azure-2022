@@ -2,6 +2,8 @@ package com.azure.monitoring.infrastructure.webadapter;
 
 import com.azure.monitoring.application.port.in.RetrievePostsUseCase;
 import com.azure.monitoring.domain.Post;
+import com.azure.monitoring.infrastructure.adapters.webadapter.PostController;
+import com.azure.monitoring.infrastructure.adapters.webadapter.PostMapperImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -45,7 +47,7 @@ class PostControllerTest {
 
         // Act
         mockMvc.perform(MockMvcRequestBuilders.get("/v1/tweets/10"))
-        // Assert
+                // Assert
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.[0].id").value(1))
                 .andExpect(jsonPath("$.[0].userId").value(1))

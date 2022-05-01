@@ -1,33 +1,33 @@
-## Deploy a SpringBoot application to Azure Kubernetes Services
+## End-to-end application monitoring with Azure App Insights :rocket:
 
-### Application context (Social network)
+![End-to-end_application_monitoring_with_Azure_App_Insights](assets/End-to-end_application_monitoring_with_Azure_App_Insights.jpeg)
 
-On this application, we expose an API for our social network.
-Firstly, we will expose an endpoint for fetching all published userPosts.
 
-    The provider to use is: https://jsonplaceholder.typicode.com
+The purpose of this repository is to show you, how do we monitor the Java applications deployed on Azure Kubernetes Service, using a feature of Azure Monitor that provides extensible application performance management (APM) and monitoring for live web apps. Developers and DevOps professionals can use Application Insights to:
 
-We consume the endpoint `/userPosts`, below the structure of a post :
+✅ Automatically detect performance anomalies.
 
-````json
-{
-    "userId": 1,
-    "id": 1,
-    "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-    "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum..."
-  }
-````
-### Technical stack
+✅ Help diagnose issues by using powerful analytics tools.
+
+✅ See what users actually do with apps.
+
+✅ Help continuously improve app performance and usability.
+
+Since **November 2020**, using Java SDK is no more needed to instrument java applications and to collect application 
+telemetry. The solution recommended by Microsoft is an **auto-instrumentation** using 3.0 agent which will 
+track and correlate the application.
+
+### Technical stack :building_construction:
 
 The stack used on this tutorial is :
 
 - SpringBoot 2.6.x
 - Java 17
 - OpenAPI 3.0 — Contract-FIRST (Documenting the API)
-- Junit `JUPITER` for unit testing
-- Hexagonal architecture (Ports & use cases)
+- Terraform
+- Kubernetes and Helm chart
 
-### Installing dev tools
+### Installing dev tools 💼
 
 For this workshop we need some tools to interact with the Azure account `az cli`, Kubernetes services (`kubectl`), maybe the tool for IaaC to provision a resources (`Terraform`)
 
@@ -52,3 +52,5 @@ Check : $ kubectl version
     All environments: https://www.terraform.io/downloads.html
 
 Check : $ terraform -v or terraform --version
+
+4- You need also helm cli (If you want to deploy directly the charts without using terraform - helm_release resource)
